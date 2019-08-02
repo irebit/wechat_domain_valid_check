@@ -2,7 +2,6 @@ package request
 
 import (
 	"io/ioutil"
-	"log"
 	"net/http"
 	"strings"
 	"time"
@@ -62,12 +61,6 @@ type ExportRedirectURL struct {
 }
 
 func (l *ExportRedirectURL) RoundTrip(req *http.Request) (resp *http.Response, err error) {
-	log.Println("==================")
-	// if l.RedirectURL != "" {
-	// 	log.Println(l.RedirectURL)
-	// 	buf := bytes.NewBuffer([]byte(l.RedirectURL))
-	// 	return http.ReadResponse(bufio.NewReader(buf), req)
-	// }
 	t := l.Transport
 	if t == nil {
 		t = http.DefaultTransport
@@ -78,11 +71,7 @@ func (l *ExportRedirectURL) RoundTrip(req *http.Request) (resp *http.Response, e
 	}
 	switch resp.StatusCode {
 	case http.StatusMovedPermanently, http.StatusFound, http.StatusSeeOther, http.StatusTemporaryRedirect:
-		log.Println("Request for", req.URL, "redirected with status", resp.StatusCode, resp.Header["Location"][0])
-		// break
-		// buf := bytes.NewBuffer([]byte(resp.Header["Location"][0]))
-		// return http.ReadResponse(bufio.NewReader(buf), req)
-		// l.RedirectURL = resp.Header["Location"][0]
+		// log.Println("Request for", req.URL, "redirected with status", resp.StatusCode, resp.Header["Location"][0])
 		resp.StatusCode = http.StatusOK
 		return resp, nil
 	}
