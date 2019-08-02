@@ -8,7 +8,7 @@
     package main 
 
     import (
-        "github.com/irebit/jingdong_union_go"
+        "github.com/irebit/wechat_domain_valid_check"
         "log"
     )
 
